@@ -297,3 +297,66 @@ async function fetchAuthorPost() {
   }
 }
 fetchAuthorPost();
+
+
+
+// Write a function ParallelLimit(tasks, limit) where tasks is an array of functions that return Promises. Run only limit promises concurrently until all are resolved.
+// Example:
+// const tasks = [
+//  () => fetch('/api/1'),   //Promise starts only when we call it, we decide when it starts
+//  () => fetch('/api/2'),
+//  () => fetch('/api/3')
+// ];
+// await ParallelLimit(tasks, 2);
+
+// Meaning: Run only 2 promises at the same time , when one finishes -> start the next , Continue until all tasks are done(concurrency control).
+// promise.all (ignores limit, run all at once)
+
+
+async function ParallelLimit(tasks,limit){
+  let index = 0;   // which task to start to next
+  let running = 0;  // currently executing promises
+  let results = []; // stores resolved values
+
+  return new Promise((res,rej)=>{
+    function runNext(){
+      if(index = tasks.length && running === 0){
+        res(results);
+        return;
+      }
+      while(running < limit && index < tasks.length){
+        const currentIndex = index;
+        const task = tasks[index];
+        index++;
+        running++;
+
+        task()
+        .then(result =>{
+          results[currentIndex] = result;
+        })
+        .catch(reject)
+        .finally(() => {
+          running--;
+          runNext();
+        });
+      }
+    }
+    runNext();
+  });
+}
+
+// Write a function TimeoutWrapper(fn, ms) that wraps any async function fn and rejects if it takes longer than ms.
+
+function TimeoutWrapper(fn, ms){
+  return async function (...args){
+    return promise.race([
+      fn(...args),
+      new Promise((rej)=>{
+        setTimeout(()=>{
+          reject(new Error("Operation timed out")), ms
+        })
+      })
+    ]);
+  };
+}
+TimeoutWrapper(fetchData, 3000);
