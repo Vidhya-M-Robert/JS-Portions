@@ -1,0 +1,16 @@
+.tag{
+    color:white;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+.tag.success{                          /*Select elements that have BOTH tag AND success classes*/
+    background-color: green;
+}
+.tag.error{
+    background-color: red;
+}
+
+/* .tag .success{                                 Select an element with class success  INSIDE an element with class tag 
+     background-color: red;
+}  */

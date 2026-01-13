@@ -188,6 +188,11 @@ React.createElement(
         // JSX requires tags to be explicitly closed 
         // Self-closing tags <img />
         // wrapping tags <li> ... </li>.
+
+// class = className
+// for = htmlFor
+
+
 //  {} in JSX =>
     className = "Avatar" //CSS className
     src={avatar} // reads the value of the js variable called avatar.
@@ -195,7 +200,7 @@ React.createElement(
 // 1.As text directly inside the JSX tag    eg: <h1> {name}'s To do </h1> 
 // 2. As attributes immediately following the = sign  eg: src={avatar}  not src= "{avatar}"
 
-// JS in JSX use => {{ }}
+// Onjects in JSX use => {{ }}
 
     
 // JSX with variables
@@ -297,14 +302,22 @@ const list = (
 // PROJECT STRUCTURE
 
 // main.jsx => Main file which actually selects the root element from HTML and renders a react component in it.
+
 // index.html  => Entry Point , React injects UI into this "div", only one HTML file as SPA(Single Page Application).
+
 // Package.json => It contains the dependencies and the scripts required for the project.
+
 // Node Modules => All the dependencies are installed here
+
 // src => Work with it during development
-// inedx.js => Specify root component and DOM component controlled by REACT
+
+// index.js => Specify root component and DOM component controlled by REACT
+
 // App.jsx => Responsible for the HTML displayed in the browser.
+
 // vite.config.js => Used for running particular vite app.
-// gitignore => Contains files we need to ignored whenever pushing code to got repo.
+
+// gitignore => Contains files we need to ignored whenever pushing code to git repo.
 
 
 // DOM (Document Object Model)
@@ -343,3 +356,94 @@ const list = (
 
 // IF the root itself got changed, it will tear down the previous version of the Virtual DOM Tree.
 
+// PROPS
+
+// React components use props to communicate with each other. (PARENT -> CHILD)
+// Every parent component can pass some information with it's child component by giving them "props".
+// Information pass to a JSX tag.
+// PROPS ARE SINGLE PLAIN JS OBJECT
+// PROPS ARE READ-ONLY
+// Immutable
+
+// PASSING PROPS TO A COMPONENT
+
+export default function Profile(){
+    return (
+        <Avatar 
+        person={{name:"Lin Yuang", age:34}} size = {100}
+        />
+    );
+}
+
+// Read props inside the child component
+
+// list the names(person,size) seperated by commas inside ({....})
+
+function Avatar({person, size}){
+    //person and sizes are available here...
+}
+// This function Avatar({ person, age }) is called destructuring
+//It is equivalent to reading properties from a function parameter
+function Avatar(props){
+    let person = props.person;
+    let size = props.size;
+}
+
+// Specifying a default value for a prop
+
+// If u want to give prop a default value to fallback on when no value is specified, u can do it with destructuring by putting = and the default value right after parameter.
+// Default value is used only if -;
+    // if the prop is missing
+    // if the prop is passes like size={undefined}
+// Default value is not used when , size={0},size={null}
+
+//Accessing props Inside a Component
+//1.Using props object
+function Card(props){
+    return <h2>{props.title}</h2>;
+}
+// 2.Destructuring
+function Card({title,description}){
+    return (
+        <>
+        <h2>{title}</h2>
+        <p>{description}</p>
+        </>
+    );
+}
+
+// Equivalent to 
+
+const title = props.title;
+const description  = props.description;
+
+// Forwarding props with the JSX spread syntax
+
+function Profile(props){
+    return (
+        <div>
+            <Avatar {...props}/>
+        </div>
+    )
+}
+
+
+{/* <Card>
+    <Avatar />
+</Card> */}
+
+// Render Avatar inside Card.
+// React convert above to 
+<Card children={<Avatar />} />
+// children is just a normal prop that React automatically passes.
+// Children is the content placed inside a component
+
+function Card({children}){   //children whatever written between <Card> and </Card>
+    return (
+        <div className='card'> 
+            {children}
+        </div>
+    )
+}
+
+// REACT follows ONE-WAY data flow
