@@ -1,0 +1,119 @@
+// Props are like arguments to a function
+// Props are Immutable, they are read only
+// props we PASS INTO A COMPONENT(handled outside of the component), and state is HANDLED INSIDE OF THAT COMPONENT
+// To mutate a prop we need state 
+
+// When we change the state inside the application, it's going to re-render that portion.
+
+// State is a React's way of remembering data and re-rendering the UI when it changes(Component specific memory)
+// Memory + re-render trigger
+// Live inside the component
+// Mutable
+// Controlled by component itself
+
+// State is what the component CONTROLS
+// Props are what the component RECEIVES
+
+// State is data that React tracks,controls and used to decide when to re-render UI.
+
+// To update a component with new Data 2 things need to happen -;
+    // 1)Retain the data between renders
+    // 2)Trigger react to render the component with new data
+
+// UseState Hook -;
+// 1)A state variable to retain the data between renders .
+// 2)A state setter function to update the variable and trigger React to render the component again.
+
+// Adding a state variable
+
+// 1) Import useState from React at the top of the file
+import { useState } from "react";
+
+// replace let index =0;
+const [index,setIndex] = useState(0);
+// here index is a state variable and setIndex is the setter function
+
+// The [ and ] are called array destructuring(read values from an array), The array returned by useState has always exactly 2 items
+
+// It's working in handleClick
+function handleClick(){
+    setIndex(index+1);
+}
+
+// In React, function starting with "use" is called HOOK.
+// Hooks are special functions that are only available while React is rendering
+// Hooks can only be called at the top level of the components or your own hooks.
+// Can't call inside loops,conditions or other nested functions.
+
+// useState(0) is initializing the value to zero.
+// Every time the component renders, the useState givrs an array containing 2 values -;
+    // The state(index) variable
+    // The setter function(setIndex)
+
+// 1) YOUR COMPONENT RENDERS THE FIRST TIME(as we passes o to the useState as initial value for index), it will return [0,setIndex].
+// React remembers 0 is the latest "state" value.
+
+// 2) YOU UPDATE THE STATE. When user clicks the button ,it calls the setIndex(index+1). Index is 0 , So it's setIndex(1).This tells React to remember index is 1 now and triggers another render.
+//  3) YOUR COMPONENT'S SECOND RENDER .React still sees useState(0) but react remembers that index is set to 1, it returns [1,setIndex] instead and so on.
+
+// You can define multiple state varibles if there states are unrelated
+// State structure =;
+    // Group related states
+    // Avoid contradiction in state 
+    // Avoid redundant state 
+    // Avoid duplication in state
+    // Avoid deeply nested state 
+
+// If you render the same component twice,each copy will have completely isolated state.Changing one of them doesn't sffect the other.
+// Unlike props, state is fully private to the component declaring it.Parent component can't change it.
+
+// RECAP =>
+    // Use a state variable when a component needs to remember some information between the renders.
+    // State variables are declared by calling the "useState" hook.
+    // Hooks are special functions that start with "use".They let you hook into React features like state.
+    // Calling hooks, is only valid at the top of the components or another hook
+    // Usestate hook returns a pair of values -; the current state and a function to update it.
+    // State is private to the component,If you render it in two places, each copy gets it's own states
+
+// RENDER AND COMMIT
+// Before the components are rendered on screen , they must be "rendered by React"
+
+// Requesting and Serving UI has 3 steps -;
+    // 1)Triggering a render(delivering the order of the customer to the kitchen)
+        // 2 reasons for a component to render =; It's the component's initial render(When app starts u need to trigger the initial render), The component's state has been updated(Once the compoenent has been initially rendered, u can trigger further renders by updating it's state with the "set" function )
+
+    // 2)Rendering the Component(Preparing the order in the kitchen)
+            // Rendering is React calling your components => On initial render,React will call the root component,for subsequent react will call the fn component whose state update triggered the render.
+            // The process is recursive, updated component returns some other component(react will render it)=> and so on until there are no more nested components and react knows Exactly what should be displayed on the screen.
+
+    // 3)Commiting to the DOM(placing the order on the table)
+        // After rendering your components,React will modify the DOM
+
+// STATE => WHEN YOU NEED RE-RENDER AND UPDATE YOUR APPLICATION BASED ON SOMETHING THE USER HAS DONE.
+// PROPS => WHEN YOU WANT TO DISPLAY SOME INFORMATION INSIDE OF A COMPONENT WITHOUT HARD CODING IT.
+
+
+
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// UI is a function of data
+// State exists for=>
+    // A way to store data
+    // A way to know when data changes
+    //A way to re-render UI safely
+
+    // State is data that React owns,tracks,and uses to decide when to re-render a component.
+    
+
+// STALE STATE BUG
+
+// suppose initial state of count = 0;
+// click add once => setCount(0+2) => 2 (React will update it later)
+// click add again very fast => setCount(0+2) (still uses old count) 
+//  ???
+// React batched updates , count is still 0 in this render so result become 2 again
+// React state : is asynchronous, is scheduled, isbatched
+// Solution => Use Functional updater => setCount(prevCount => prevCount + step);  => because prevCount is always the latest value     <==> // DoubleIncrement.jsx
+
+// GR => If the next state depends on the previous state, ALWAYS use the functional updater
