@@ -117,3 +117,52 @@ function handleClick(){
 // Solution => Use Functional updater => setCount(prevCount => prevCount + step);  => because prevCount is always the latest value     <==> // DoubleIncrement.jsx
 
 // GR => If the next state depends on the previous state, ALWAYS use the functional updater
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// UDEMY 
+
+// Rendering Lists =>
+    // key => performance optimization
+        // special prop that React uses internally to identify list items.
+        // Key is not passed to the component as prop
+        // It is used only by React
+    // WHY DOES REACT NEEDS KEY ??
+        // React uses virtual DOM
+        // Reconciliation => React compares previou UI with new UI and updates only what changed.
+
+
+
+
+    // map => transforms an array into NEW array (especially for list) Creates JSX elements
+    // forEach() => returns undefined  (useless in JSX)
+
+// MENTAL MODAL
+
+// array.map(ONEItem => <Component propName={ONEItem} />)
+
+
+// Conditional rendering with Multiple Returns
+// 2 returns cannot happen at the same time.
+
+// React Fragment
+//  <>....</>  or
+// Sometimes we need a key while rendering lists => use 
+// import React from "react";
+// <React.Fragment id="sdcs"></React.Fragment>
+
+// State => Data that a component can hold over time, 
+//       => necessary for information that it needs to remember throughout the app's lifecycle   (Component's memory)
+// eg:Notification count, textContent of input field, active tab in a tab component  (common thing in this is that => THE USER CAN CHANGE THESE VALUES.)
+
+// State variable / piece of state => A single variable in a component(component state)
+// Updating the state triggers the react to re-render the compoenent
+// State allows developers =>
+    // Update the component's view(by re-rendering it)
+    // Persist local variables between renders
+
+// useState is a HOOk in react , all the React Functions that starts with "use" are HOOKS (eg; useEffect, useReducer, useState) only call on the top level of the function.
+
+// re-rendering basically means that => the React calls the component function again so each time the component rendered.

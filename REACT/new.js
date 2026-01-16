@@ -172,6 +172,9 @@ React.createElement(
     React.createElement("p",null,"World")
 );
 // Rules of JSX =>
+
+    // Statements are not allowed(eg: if/else, for, switch)
+
     // 1. Return a single root Element
         // * To return multiple elements from a component, wrap them with a single parent tag. (because we can't return 2 objects from a function without wrapping them in an array.here JSX is wrappedd into plain JS objects.)
         return(
