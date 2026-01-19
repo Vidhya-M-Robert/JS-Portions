@@ -166,3 +166,91 @@ function handleClick(){
 // useState is a HOOk in react , all the React Functions that starts with "use" are HOOKS (eg; useEffect, useReducer, useState) only call on the top level of the function.
 
 // re-rendering basically means that => the React calls the component function again so each time the component rendered.
+
+// Array.from() => Creating an array dynamically
+
+Array.from(arrayLike, mapFunction)
+
+Array.from({length:20},(_,i)=>i+1)
+
+// length:20  is not an array   (It is an array like object telling js: Create somthing with 20 empty slots)
+// (_,i)=>i+1  => _(value unused here)  i=> index(starts from 0) i+1 => converts (0-19) into (1-20)
+.map((num) => (
+  <option value={num} key={num}>{num}</option>
+))
+// loop over each element , returnss a new array, In React => returns JSX elements
+
+// Controlled elements technique => It is react that owns and control the input fields and no longer the DOM.
+    // Define the piece of state 
+    //Use the piece of state on the element that we want to control
+    //Update the state variable
+
+// PROPS < === > STATE
+// Receiving new props causes component to re-render.(Usually when the parent's state has been updated)
+
+
+// ////////////////
+// CONTROLLED ELEMENTS
+// A controlled element is a FORM INPUT whose value is "controlled" by 'React' state instead of 'DOM'.
+// React becomes the single source of truth
+// The DOM no longer decides the value
+// State decides => DOM just displays
+
+// Normal HTML input(Uncontrolled) =>
+
+    // <input type="text"/>
+        //Browser stores the value
+        //JS reads it only when needed
+        //React has no idea What's inside
+
+//Controlled input(React way)
+{/* <input value={state} onchange={setState}/> */}
+    // React state stores the value
+    // DOM displays whether React gives
+    // React always knows the value
+
+
+// Why React NEEDS Controlled Elements
+//  Validation
+// if (!description) return;
+
+
+// React already knows input value.
+
+//  Reset Form Easily
+// setDescription("");
+// setQuantity(1);
+
+
+// Try doing this with DOM — painful 
+
+//  Disable button conditionally
+// <button disabled={!description}>ADD</button>
+
+//  Live preview
+// <p>{description}</p>
+
+// Thinking in REACT => 
+    // Break the desired UI onto componenets and establish the component tree
+    // Build a static version in React(without state)
+   
+//////////////////////////////////////////////////////////////////////////////////
+     //Think about state : 
+        //When to use state
+        //Types of state: local vs. global
+        //Where to place each of state 
+    //Establish data flow:                                     State management
+        //One-way data flow
+        //Child-to-parent communication
+        //Accessing global state
+////////////////////////////////////////////////////////////////////////////////////
+
+// Local State =>   eg: searchbar on udemy
+    //State needed only by one or few components
+    // State that is defined in a component and only that component and child components have access to it (by passing via props)
+
+// Global State =>  eg: shopping cart of udemy
+    //State that many components might need
+    //Shared state that is accessible to every component in the entire application.
+    //It shared b/w all components => therefore it is also called as shared state
+// Can define global state  using React's Context API or Redux
