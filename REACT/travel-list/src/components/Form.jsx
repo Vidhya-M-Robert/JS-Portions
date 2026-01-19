@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-export default function Form(){
+export default function Form({onAddItems}){
   const[description,setDescription] = useState("");
   const[quantity,setQuantity] = useState(5);
   // const [items,setItem] = useState([]);
 
   // function handleAddItems(item){
-  //     setItems()
+  //     setItem(items => [...items,item])    //current item + new item should be displayed ,so current depends on new , therefore a callback fn is needed.
+  //     // React is immutable, we can't mutate the array like  [items.push(item)];  , so create new array with current(spread the current item) and (add) new items.
   // }
 
   function handleSubmit(e){
@@ -16,7 +17,10 @@ export default function Form(){
     const newItem = {
       description, quantity, packed:false,id:Date.now()
     };
-    console.log(newItem);
+
+    onAddItems(newItem);
+    setDescription("");
+    setQuantity(1);
   }
     return(
       <form className="add-form" onSubmit={handleSubmit}>
@@ -36,3 +40,7 @@ export default function Form(){
       </form>
     )
 }
+
+
+//need item in the Form component but ca't pass it as a prop as Form is not the parent of PackingList, they are sibling components , so here we use lift up state => Take the needed state and move to the closest parent component
+// So move [item,setItem] state to app component which is the common parent of form and packingList
