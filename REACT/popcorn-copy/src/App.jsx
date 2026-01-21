@@ -60,6 +60,13 @@ export default function App() {
       <NumResults movies={movies} />
       </NavBar>
       <Main>
+      {/*explicit prop as an alternative for children */}
+
+    {/* <Box element={<MovieList movies={movies}/>}/>
+    <Box element={<><WatchedSummary watched={watched} />
+           <WatchedMoviesList watched={watched} /> </> }/> */}
+
+
         <Box>
           <MovieList movies={movies}/>
         </Box>
@@ -127,6 +134,24 @@ function MovieList({ movies }) {
     </ul>
   );
 }
+// explicit prop as an alternative for children
+
+// function Box({ element }) {
+//   const [isOpen, setIsOpen] = useState(true);
+//   return (
+//     <div className="box">
+//       <button
+//         className="btn-toggle"
+//         onClick={() => setIsOpen((open) => !open)}
+//       >
+//         {isOpen ? "–" : "+"}
+//       </button>
+//       {isOpen && element}
+//     </div>
+//   );
+// }
+
+
 
 function Box({ children }) {
   const [isOpen, setIsOpen] = useState(true);
@@ -144,7 +169,7 @@ function Box({ children }) {
 }
 
 
-// function WatchedBox() {
+// function WatchedBox() {                                            almost similar to ListBox === (now) BOX , so making it reusable
 //   const [watched, setWatched] = useState(tempWatchedData);
 //   const [isOpen2, setIsOpen2] = useState(true);
 
