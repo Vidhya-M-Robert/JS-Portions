@@ -254,3 +254,20 @@ Array.from({length:20},(_,i)=>i+1)
     //Shared state that is accessible to every component in the entire application.
     //It shared b/w all components => therefore it is also called as shared state
 // Can define global state  using React's Context API or Redux
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// useEffect HOOK - to register an effect
+//function contains the side effect(any interaction between a react component and a world outside that component) that needed to register 
+// (means to run as the component renders, actually after it has been painted on to screen) [the effect will actually be executed after render]
+
+// returns a function and a dependency array (and sometimes a cleanup function).
+// [] dependency array => the effect will only run on mount(When the app component renders for the first time.)
+// Fetch data as soon as the application loads
+//Cleanup function => A function that will be called before the component re-renders or unmounts.
+// To keep a component synchronized with some external system
+
+
+// Always it consoles 2 results because of the React's strict mode.(this is for identify if there are any problems with the effect)
+
+// To show that the data is still loading we use some state => and as soon as the result is loaded then we don't need the loading indicator anymore.

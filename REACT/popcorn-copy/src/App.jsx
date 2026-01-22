@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const tempMovieData = [
   {
@@ -50,39 +50,76 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const KEY = "5a57dfda";
+
 export default function App() {
-  const [watched, setWatched] = useState(tempWatchedData);
-  const [movies, setMovies] = useState(tempMovieData);
+  const [watched, setWatched] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsloading] = useState(false);
+  const query = 'interstellar';
+  // useEffect(function(){
+
+  // fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+  //   .then((res) => res.json())
+  //   .then((data) => setMovies(data.Search));
+  // },[]);
+
+
+// Async Function
+  useEffect( function (){
+    async function fetchMovies(){
+   try{ setIsloading(true);
+    const res = await fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`);
+
+    if(!res.ok) throw new Error("Oops something went wrong!");
+    
+    const data = await res.json();
+    setMovies(data.Search);
+    setIsloading(false);
+    // console.log(movies);  //returns empty array as it is in it's stale state
+    console.log(data.Search);} 
+    catch(err){
+      console.log(err.message);
+    }
+    // here it returns 2 results because of the React's strict mode.(this is for identify if there are any problems with the effect)
+  }
+  fetchMovies();
+  },[]);
+
+
   return (
     <>
       <NavBar>
-      <Search />
-      <NumResults movies={movies} />
+        <Search />
+        <NumResults movies={movies} />
       </NavBar>
       <Main>
-      {/*explicit prop as an alternative for children */}
+        {/*explicit prop as an alternative for children */}
 
-    {/* <Box element={<MovieList movies={movies}/>}/>
+        {/* <Box element={<MovieList movies={movies}/>}/>
     <Box element={<><WatchedSummary watched={watched} />
            <WatchedMoviesList watched={watched} /> </> }/> */}
 
-
         <Box>
-          <MovieList movies={movies}/>
+          {isLoading ?<Loader /> : <MovieList movies={movies} />}
         </Box>
         <Box>
-           <WatchedSummary watched={watched} />
-           <WatchedMoviesList watched={watched} />
+          <WatchedSummary watched={watched} />
+          <WatchedMoviesList watched={watched} />
         </Box>
       </Main>
     </>
   );
 }
 
+function Loader(){
+  return <p className="loader">Loading...</p>
+}
+
 function NavBar({ children }) {
   return (
     <nav className="nav-bar">
-    <Logo /> {children}
+      <Logo /> {children}
     </nav>
   );
 }
@@ -118,11 +155,7 @@ function NumResults({ movies }) {
 }
 
 function Main({ children }) {
-  return (
-    <main className="main">
-      {children}
-    </main>
-  );
+  return <main className="main">{children}</main>;
 }
 
 function MovieList({ movies }) {
@@ -151,23 +184,17 @@ function MovieList({ movies }) {
 //   );
 // }
 
-
-
 function Box({ children }) {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="box">
-      <button
-        className="btn-toggle"
-        onClick={() => setIsOpen((open) => !open)}
-      >
+      <button className="btn-toggle" onClick={() => setIsOpen((open) => !open)}>
         {isOpen ? "–" : "+"}
       </button>
       {isOpen && children}
     </div>
   );
 }
-
 
 // function WatchedBox() {                                            almost similar to ListBox === (now) BOX , so making it reusable
 //   const [watched, setWatched] = useState(tempWatchedData);
@@ -190,7 +217,6 @@ function Box({ children }) {
 //     </div>
 //   );
 // }
-
 
 function Movie({ movie }) {
   return (
