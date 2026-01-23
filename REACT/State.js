@@ -271,3 +271,10 @@ Array.from({length:20},(_,i)=>i+1)
 // Always it consoles 2 results because of the React's strict mode.(this is for identify if there are any problems with the effect)
 
 // To show that the data is still loading we use some state => and as soon as the result is loaded then we don't need the loading indicator anymore.
+
+// By default, effects run after every render. We can prevent that by passing a dependency array, without that react doesn't know when to run the effect.
+// Each time one of the dependencies changes, the effect will be executed again, Every state variable  and prop used inside the effect MUSt be included in the dependency array.
+
+// useEffect(fn, [x,y,z]);
+// useEffect(fn, []);
+// useEffect(fn);
