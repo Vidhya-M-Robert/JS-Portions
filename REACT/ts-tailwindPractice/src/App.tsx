@@ -1,5 +1,13 @@
 // import Profile from "./Components/Profile"
 
+// import BottomScroll from "./Components/BottomScroll"
+
+// import PreviousVal from "./Components/Previous Val"
+
+// import StopWatch from "./Components/StopWatch"
+
+// import Form from "./Components/Form"
+
 // import PCard from "./Components/PCard"
 
 // import DashBoard from "./Components/DashBoard"
@@ -18,7 +26,10 @@ function App() {
     {/* <Grid /> */}
     {/* <DashBoard /> */}
     {/* <PCard /> */}
-
+    {/* <Form /> */}
+    {/* <StopWatch /> */}
+    {/* <PreviousVal /> */}
+    {/* <BottomScroll /> */}
     </>
   )
 }
