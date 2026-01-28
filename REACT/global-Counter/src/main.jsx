@@ -2,11 +2,11 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { CounterProvider } from './Contexts/CounterProvider'
-// import App from '../../utubehook'
+import App from './App'
 
 createRoot(document.getElementById('root')).render(
   <CounterProvider>
-    {/* <App /> */}
+    <App />
   </CounterProvider>
  
 )
